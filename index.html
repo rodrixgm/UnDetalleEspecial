@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+  <title>Para ti ✨</title>
+
+  <style>
+    :root{
+    --bg1:#fff7fb;
+    --bg2:#f2efff;
+
+    --card:rgba(255,255,255,.68);
+    --text:#221b24;
+    --muted:#6b5e70;
+    --border:rgba(34,27,36,.14);
+
+    --shadow:0 18px 55px rgba(0,0,0,.10);
+
+    --accent:#e75480; 
+    --accent3:#460e1f;  /* rosa */
+    --accent2:#7c5cff;  /* lavanda */
+
+    --radius:22px;
+
+    --fontTitle:"Playfair Display", serif;
+    --fontBody:"Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 10% 15%, rgba(231,84,128,.22), transparent 60%),
+        radial-gradient(800px 600px at 85% 25%, rgba(124,92,255,.20), transparent 55%),
+        radial-gradient(700px 500px at 50% 80%, rgba(255,200,220,.18), transparent 60%),
+        linear-gradient(180deg, #fff6fb, #f1edff);
+
+      overflow-x:hidden;
+    }
+    body{ font-family: var(--fontBody); }
+
+    h1, .overlayTitle{
+    font-family: var(--fontTitle);
+    }
+
+    .brandTitle{
+    font-family: var(--fontBody);
+    letter-spacing:.2px;
+    }
+
+    /* ===== Layout ===== */
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:26px 16px;
+    }
+    .name{
+    font-family: "Dancing Script", cursive;
+    font-size: 1.15em;
+    color: var(--accent);
+    font-weight: 700;
+    }
+
+    .shell{
+      width:min(980px, 96vw);
+      display:grid;
+      gap:16px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:10px 6px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      user-select:none;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:999px;
+      background:linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 10px 20px rgba(231,84,128,.22);
+    }
+    .brandTitle{
+      font-weight:800;
+      letter-spacing:.3px;
+    }
+
+    .musicBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+      padding:10px 12px;
+      border-radius:999px;
+      cursor:pointer;
+      color:var(--text);
+      transition:.18s transform, .18s background;
+    }
+    .musicBtn:hover{ transform: translateY(-1px); background:rgba(255,255,255,.70); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      align-items:start;
+    }
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+    border:1px solid rgba(231,84,128,.25);
+    background:
+        linear-gradient(
+        180deg,
+        rgba(255,245,250,.92),
+        rgba(245,240,255,.88)
+        );
+    backdrop-filter: blur(20px);
+    border-radius:var(--radius);
+    box-shadow: 0 20px 60px rgba(231,84,128,.12);
+    padding:18px;
+    }
+
+
+    .kicker{
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin:0 0 10px;
+    }
+    h1{
+      margin:0 0 8px;
+      font-size:34px;
+      line-height:1.08;
+      letter-spacing:-.02em;
+    }
+    p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:15.5px;
+    }
+
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(43,36,48,.16), transparent);
+      margin:16px 0;
+    }
+
+    .poemBox{
+    border:1px dashed rgba(231,84,128,.35);
+    background: rgba(255,240,248,.75);
+    border-radius:18px;
+    padding:14px;
+    margin-top:12px;
+    }
+    .poemLine{
+      font-style:italic;
+      color:#3b3440;
+      opacity:.92;
+      line-height:1.6;
+    }
+
+    /* ===== Date picker ===== */
+    .question{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:10px;
+    }
+    .dateRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 520px){
+      .dateRow{ grid-template-columns: 1fr; }
+    }
+
+    .dateBtn{
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.60);
+      border-radius:18px;
+      padding:14px 14px;
+      cursor:pointer;
+      text-align:left;
+      transition:.18s transform, .18s border, .18s background, .18s box-shadow;
+      position:relative;
+      overflow:hidden;
+    }
+    .dateBtn:hover{
+      transform: translateY(-2px);
+      background:rgba(255,255,255,.78);
+      box-shadow:0 14px 35px rgba(0,0,0,.10);
+    }
+    .dateBtn .label{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .dateBtn .sub{
+      margin-top:6px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .dateBtn.selected{
+      border-color: rgba(231,84,128,.55);
+      background: linear-gradient(180deg, rgba(231,84,128,.12), rgba(138,99,255,.10));
+    }
+    .badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(43,36,48,.14);
+      background:rgba(255,255,255,.55);
+      color:#3b3440;
+      white-space:nowrap;
+    }
+
+    .confirmWrap{
+      margin-top:14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      opacity:0;
+      transform: translateY(6px);
+      transition: .22s ease;
+      pointer-events:none;
+    }
+    .confirmWrap.show{
+      opacity:1;
+      transform: translateY(0);
+      pointer-events:auto;
+    }
+
+    .primaryBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      cursor:pointer;
+      padding:12px 14px;
+      border-radius:14px;
+      color:white;
+      font-weight:800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow:0 18px 40px rgba(231,84,128,.18);
+      transition:.18s transform, .18s filter;
+    }
+    .primaryBtn:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+    .hint{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    /* ===== Overlay (entrada) ===== */
+    .overlay{
+      position:fixed;
+      inset:0;
+      display:grid;
+      place-items:center;
+      padding:22px;
+      background:
+        radial-gradient(1200px 700px at 20% 25%, rgba(231,84,128,.20), transparent 55%),
+        radial-gradient(1000px 650px at 80% 30%, rgba(138,99,255,.18), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      z-index:50;
+    }
+    .overlayCard{
+      width:min(560px, 95vw);
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.62);
+      backdrop-filter: blur(16px);
+      border-radius:26px;
+      box-shadow: var(--shadow);
+      padding:18px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .overlayCard:before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background: radial-gradient(circle at 30% 30%, rgba(231,84,128,.18), transparent 50%),
+                  radial-gradient(circle at 70% 40%, rgba(138,99,255,.16), transparent 55%);
+      transform: rotate(12deg);
+      pointer-events:none;
+    }
+    .overlayInner{ position:relative; z-index:1; }
+    .tiny{
+      font-size:12px;
+      color:var(--muted);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      margin:0 0 10px;
+    }
+    .overlayTitle{
+      margin:0 0 10px;
+      font-size:34px;
+      line-height:1.1;
+      letter-spacing:-.02em;
+      font-weight:900;
+    }
+    .overlaySub{
+      margin:0 auto 14px;
+      max-width:42ch;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    .enterBtn{
+      width:100%;
+      max-width:320px;
+      margin:0 auto;
+    }
+
+    /* Small footer note */
+    .foot{
+      text-align:center;
+      color:rgba(43,36,48,.55);
+      font-size:12px;
+      padding:8px 0 0;
+    }
+        /* ===== Overlay wow ===== */
+    .overlay{
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .35s ease, transform .45s ease;
+    }
+
+    .overlay.closing{
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events:none;
+    }
+
+    .overlayCard{
+    transform: translateY(8px) scale(.985);
+    opacity: 0;
+    animation: overlayIn .65s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    @keyframes overlayIn{
+    to{
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    }
+
+    /* Sutil brillo del fondo */
+    .overlay:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(900px 420px at 50% 10%, rgba(255,255,255,.35), transparent 55%);
+    pointer-events:none;
+    opacity:.65;
+    }
+
+    /* Botón más “clickable” */
+    .enterBtn{
+    transform: translateY(0);
+    transition: transform .18s ease, filter .18s ease;
+    }
+    .enterBtn:hover{
+    transform: translateY(-1px);
+    filter: brightness(1.02);
+    }
+    .enterBtn:active{
+    transform: translateY(0);
+    }
+        /* ===== Entrada del contenido (stagger) ===== */
+    .shell{
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .55s ease, transform .65s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .shell.ready{
+    opacity: 1;
+    transform: translateY(0);
+    }
+
+    .card{
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .55s ease, transform .65s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .shell.ready .card{
+    opacity: 1;
+    transform: translateY(0);
+    }
+
+    /* escalonado */
+    .shell.ready .card:nth-child(1){ transition-delay: .06s; }
+    .shell.ready .card:nth-child(2){ transition-delay: .14s; }
+
+    /* suaviza topbar y footer también */
+    .topbar, .foot{
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .55s ease, transform .65s cubic-bezier(.2,.8,.2,1);
+    }
+    .shell.ready .topbar{ opacity:1; transform: translateY(0); transition-delay:.02s; }
+    .shell.ready .foot{ opacity:1; transform: translateY(0); transition-delay:.20s; }
+
+        /* ===== Micro-interacciones fechas ===== */
+    .dateBtn{
+    position:relative;
+    overflow:hidden;
+    }
+
+    .dateBtn:active{
+    transform: translateY(0); /* evita salto raro al click */
+    }
+
+    .dateBtn.selected{
+    animation: pop .22s ease;
+    }
+
+    @keyframes pop{
+    0%{ transform: translateY(0) scale(1); }
+    50%{ transform: translateY(-1px) scale(1.01); }
+    100%{ transform: translateY(0) scale(1); }
+    }
+
+    /* “brillito” sutil al seleccionar */
+    .dateBtn::after{
+    content:"";
+    position:absolute;
+    inset:-40%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.45), transparent 55%);
+    transform: rotate(12deg);
+    opacity:0;
+    transition: opacity .18s ease;
+    pointer-events:none;
+    }
+
+    .dateBtn.selected::after{
+    opacity:.55;
+    }
+
+    /* Check (sale a la derecha) */
+    .check{
+    width:28px;
+    height:28px;
+    border-radius:999px;
+    display:grid;
+    place-items:center;
+    color:white;
+    font-size:16px;
+    font-weight:900;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow:0 12px 26px rgba(231,84,128,.22);
+    opacity:0;
+    transform: scale(.8);
+    transition: opacity .18s ease, transform .18s ease;
+    flex:0 0 auto;
+    }
+
+    .dateBtn.selected .check{
+    opacity:1;
+    transform: scale(1);
+    }
+
+    /* Confirmación más fina (sin alert) */
+    .confirmNote{
+    border:1px solid rgba(34,27,36,.12);
+    background:rgba(255,255,255,.55);
+    border-radius:14px;
+    padding:10px 12px;
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.4;
+    }
+    /* ===== Pantalla Gracias ===== */
+    .thanks{
+    position:fixed;
+    inset:0;
+    display:grid;
+    place-items:center;
+    padding:22px;
+    background:
+        radial-gradient(1200px 700px at 20% 25%, rgba(231,84,128,.18), transparent 55%),
+        radial-gradient(1000px 650px at 80% 30%, rgba(124,92,255,.16), transparent 55%),
+        rgba(0,0,0,.08);
+    backdrop-filter: blur(10px);
+    z-index:60;
+
+    opacity:0;
+    pointer-events:none;
+    transform: translateY(8px);
+    transition: opacity .28s ease, transform .38s ease;
+    }
+
+    .thanks.show{
+    opacity:1;
+    pointer-events:auto;
+    transform: translateY(0);
+    }
+
+    .thanksCard{
+    width:min(620px, 95vw);
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.72);
+    backdrop-filter: blur(18px);
+    border-radius:26px;
+    box-shadow: 0 18px 55px rgba(0,0,0,.12);
+    padding:18px;
+    }
+
+    .thanksActions{
+    display:flex;
+    gap:12px;
+    margin-top:16px;
+    flex-wrap:wrap;
+    }
+   
+    .softTitle{
+    font-family: "Dancing Script", cursive;
+    font-size: 22px;
+    color: var(--accent3);
+    font-weight: 700;
+    margin: 6px 0 10px;
+    letter-spacing: .02em;
+    }
+
+    /* La animación SOLO cuando el contenido ya aparece */
+    .shell.ready .softTitle{
+    opacity: 0;
+    transform: translateY(6px);
+    animation: softIn .6s ease forwards;
+    animation-delay: .10s;
+    }
+
+    @keyframes softIn{
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    }
+
+    aside.card{
+        background:
+        linear-gradient(
+        180deg,
+        rgba(245,240,255,.92),
+        rgba(255,245,250,.88)
+        );
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <!-- Entrada -->
+  <div class="overlay" id="overlay">
+    <div class="overlayCard">
+      <div class="overlayInner">
+        <h2 class="overlayTitle">Tengo una pequeña sorpresa ✨</h2>
+        <p class="overlaySub">Un detalle sencillo, pero con cariño.</p>
+        <button class="primaryBtn enterBtn" id="enterBtn">Continuar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio (lo cambias después por tu mp3) -->
+  <audio id="bgm" preload="auto" loop>
+     <source src="YOKO.mp3" type="audio/mpeg" />
+  </audio>
+
+  <main class="wrap">
+    <div class="shell">
+      <div class="topbar">
+        <div class="brand">
+        </div>
+        <button class="musicBtn" id="musicBtn" type="button" aria-label="Música">
+          <span id="musicIcon">🔇</span>
+          <span id="musicText">Música</span>
+        </button>
+      </div>
+
+      <div class="grid">
+        <!-- Left: mensaje + poema -->
+        <section class="card">
+            <p>
+            Espero que te guste este pequeño detalle que hice para ti.<br>
+            No imaginé que, de un día tan de repente, conocería a alguien tan increíble.<br>
+            Con el tiempo he llegado a tomarte un cariño y aprecio muy especiales.<br><br>
+            Y quería saber, <span class="name">Danan</span>, si no estás muy ocupada…<br>
+            ¿te gustaría que saliéramos en alguna de estas fechas?
+            </p>
+
+
+          <div class="divider"></div>
+
+          <p class="softTitle">Un pedacito…</p>
+          <div class="poemBox" aria-label="Poema">
+            <div class="poemLine">“Tus ojos son como dos perlas ocultas en el fondo del mar,”</div>
+            <div class="poemLine">“que ningún pirata ha podido encontrar.”</div>
+            <div class="poemLine">“Y brillan con un fuego tan especial,”</div>
+            <div class="poemLine">“que al mirarte, el mundo aprende a brillar…”</div>
+            <div class="poemLine">Continuará.</div>
+        </div>
+        </section>
+
+        <!-- Right: invitación -->
+        <aside class="card">
+          <h1>¿Cuál de estas fechas te gustaría elegir?</h1> 
+
+          <div class="question">
+            <div class="dateRow">
+              <button class="dateBtn" id="date14" type="button" data-date="14">
+                <div class="label">
+                    <span>14 de febrero</span>
+                    <span style="display:inline-flex; align-items:center; gap:8px;">
+                        <span class="badge">Opción A</span>
+                        <span class="check" aria-hidden="true">✓</span>
+                    </span>
+                </div>
+              </button>
+
+              <button class="dateBtn" id="date21" type="button" data-date="21">
+                <div class="label">
+                <span>21 de febrero</span>
+                <span style="display:inline-flex; align-items:center; gap:8px;">
+                    <span class="badge">Opción B</span>
+                    <span class="check" aria-hidden="true">✓</span>
+                </span>
+                </div>
+              </button>
+            </div>
+
+            <div class="confirmWrap" id="confirmWrap">
+              <div class="hint" id="confirmText">Elegiste: —</div>
+              <button class="primaryBtn" id="confirmBtn" type="button">Confirmar</button>
+
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="foot">De parte de Rodri</div>
+    </div>
+    <!-- Pantalla final -->
+    <div class="thanks" id="thanks" aria-hidden="true">
+    <div class="thanksCard">
+        <p class="kicker">Listo</p>
+        <p id="thanksMsg">(Aquí irá el mensaje final según la fecha elegida.)</p>
+
+        <div class="thanksActions">
+        <button class="primaryBtn" id="backBtn" type="button">Volver</button>
+        <a class="musicBtn" id="waBtn" href="#" target="_blank" rel="noopener">Presiona para confirmar</a>
+        </div>
+    </div>
+    </div>
+
+  </main>
+
+  <script>
+    const overlay = document.getElementById("overlay");
+    const enterBtn = document.getElementById("enterBtn");
+    const shell = document.querySelector(".shell");
+
+    const bgm = document.getElementById("bgm");
+    const musicBtn = document.getElementById("musicBtn");
+    const musicIcon = document.getElementById("musicIcon");
+
+    const date14 = document.getElementById("date14");
+    const date21 = document.getElementById("date21");
+    const confirmWrap = document.getElementById("confirmWrap");
+    const confirmText = document.getElementById("confirmText");
+    const confirmBtn = document.getElementById("confirmBtn");
+
+    let selectedDate = null;
+    let musicOn = false;
+
+    function setSelected(btn){
+      [date14, date21].forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+
+      selectedDate = btn.dataset.date;
+      confirmText.textContent = `Elegiste: ${selectedDate} de febrero`;
+      confirmWrap.classList.add("show");
+    }
+
+    date14.addEventListener("click", () => setSelected(date14));
+    date21.addEventListener("click", () => setSelected(date21));
+
+    // Entrada: quita overlay e intenta iniciar música (si hay audio cargado)
+    enterBtn.addEventListener("click", async () => {
+    overlay.classList.add("closing");
+
+    // intenta iniciar música (permitido por el click)
+    bgm.volume = 0;
+    await safePlay();
+    let v = 0;
+    const target = 0.20;
+    const t = setInterval(() => {
+    v += 0.02;
+    bgm.volume = Math.min(target, v);
+    if (v >= target) clearInterval(t);
+    }, 80);
+    setTimeout(() => {
+        overlay.style.display = "none";
+        shell.classList.add("ready");
+    }, 420);
+    });
+
+
+    async function safePlay(){
+      try{
+        await bgm.play();
+        musicOn = true;
+        musicIcon.textContent = "🔊";
+      }catch(e){
+        // Si no hay audio o está bloqueado, no pasa nada.
+        musicOn = false;
+        musicIcon.textContent = "🔇";
+      }
+    }
+
+    function pauseMusic(){
+      try{ bgm.pause(); }catch(e){}
+      musicOn = false;
+      musicIcon.textContent = "🔇";
+    }
+
+    musicBtn.addEventListener("click", async () => {
+      if(!musicOn) await safePlay();
+      else pauseMusic();
+    });
+
+    const confirmNote = document.getElementById("confirmNote");
+    const thanks = document.getElementById("thanks");
+    const thanksMsg = document.getElementById("thanksMsg");
+    const backBtn = document.getElementById("backBtn");
+    const waBtn = document.getElementById("waBtn");
+
+    confirmBtn.addEventListener("click", () => {
+    if(!selectedDate) return;
+
+    // Mensaje final dentro del sitio (placeholder por ahora)
+    thanksMsg.textContent =
+        thanksMsg.textContent =`Anotado 💖 Nos vemos entonces :)`;
+
+    // WhatsApp opcional (luego personalizamos el mensaje)
+    const phone = ""; // <-- si luego quieres, aquí va el número con código país, ej: 502XXXXXXXX
+    const msg = `Hola :) Elegí el ${selectedDate} de febrero.`;
+    const url = phone
+        ? `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
+        : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+
+    waBtn.href = url;
+
+    // Mostrar pantalla gracias
+        thanks.classList.add("show");
+        thanks.setAttribute("aria-hidden", "false");
+        });
+
+        backBtn.addEventListener("click", () => {
+    thanks.classList.remove("show");
+    thanks.setAttribute("aria-hidden", "true");
+    });
+    thanks.addEventListener("click", (e) => {
+    // Si el click fue directamente en el fondo (no dentro de la tarjeta)
+    if (e.target === thanks) {
+        thanks.classList.remove("show");
+        thanks.setAttribute("aria-hidden", "true");
+    }
+    });
+
+
+  </script>
+</body>
+</html>
